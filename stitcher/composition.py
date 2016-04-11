@@ -22,6 +22,12 @@ class Composition:
         self._profile = profile
 
     def _prepare(self, path):
+        """
+        Opens and normalises an image.
+
+        :param path: The path of the image to open.
+        :return: The opened, normalised image.
+        """
         image = Image.open(path)
         return self._profile.normalise(image)
 
