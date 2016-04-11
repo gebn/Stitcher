@@ -3,14 +3,15 @@ from __future__ import unicode_literals
 
 import logging
 
+import six
 from PIL import Image, ImageChops, ImageDraw
 
-from stitcher.mixins import UnicodeStrMixin
 
 logger = logging.getLogger(__name__)
 
 
-class Join(UnicodeStrMixin):
+@six.python_2_unicode_compatible
+class Join:
     """
     Describes the join between two images.
     """
@@ -271,6 +272,6 @@ class Join(UnicodeStrMixin):
         box = ImageChops.difference(image, bg).getbbox()
         return image.crop((0, box[1], image.width, box[3]))
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Join(lower_crop: {0}px, spacing: {1}px, upper_crop: {2}px)' \
             .format(self.lower_crop, self.spacing, self.upper_crop)

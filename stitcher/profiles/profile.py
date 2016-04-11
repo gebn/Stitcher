@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from stitcher.mixins import UnicodeStrMixin
+import six
 
 
-class Profile(UnicodeStrMixin):
+@six.python_2_unicode_compatible
+class Profile:
     """
     Represents a phone's viewport configuration.
     """
@@ -70,6 +71,6 @@ class Profile(UnicodeStrMixin):
     def normalise(self, image):
         return image.convert(self.mode)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Profile(header: {0}px, footer: {1}px)'.format(
             self.header_height, self.footer_height)
