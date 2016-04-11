@@ -163,7 +163,7 @@ class Join:
                                                            upper.height - 2,
                                                            1)):
                 # it's the same
-                # TODO adjust overlap - need to use the background colour of the message bubble and find where text begins and ends (use touting IMG_2564 and IMG_2566 to test)
+                # TODO adjust overlap - use the background colour
                 return Join(upper, lower, 0, 0, 0)
 
             # it's different
