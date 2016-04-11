@@ -28,6 +28,9 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
+# PyCharm
+.idea
+
 # dotenv
 .env
 
