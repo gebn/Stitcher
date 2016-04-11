@@ -43,10 +43,12 @@ class Canvas:
 
         # add the old content (including the join's upper image), cut short if
         # necessary
-        extended.paste(self.image, (0, 0, self.image.width, self.image.height - join.lower_crop))
+        extended.paste(self.image, (0, 0, self.image.width,
+                                    self.image.height - join.lower_crop))
 
         # add the lower image from the join
-        extended.paste(join.lower.crop((0, join.upper_crop, join.lower.width, join.lower.height)),
+        extended.paste(join.lower.crop((0, join.upper_crop, join.lower.width,
+                                        join.lower.height)),
                        (0, self.image.height - join.lower_crop + join.spacing))
         self.image = extended
 
@@ -59,7 +61,8 @@ class Canvas:
 
         footer = self._profile.footer(lower)
         extended = Image.new(self._profile.mode,
-                             (self.image.width, self.image.height + footer.height))
+                             (self.image.width,
+                              self.image.height + footer.height))
         extended.paste(self.image, (0, 0))
         extended.paste(footer, (0, self.image.height))
         self.image = extended
