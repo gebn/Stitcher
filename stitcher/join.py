@@ -29,7 +29,7 @@ class Join:
         canvas = Image.new(self.upper.mode,
                            (self.upper.width,
                             upper_height + self.spacing + lower_height),
-                           (255, 255, 255))
+                           'white')
         draw = ImageDraw.Draw(canvas)
         canvas.paste(self.upper.crop((0, 0, self.upper.width, upper_height)),
                      (0, 0))
@@ -63,10 +63,11 @@ class Join:
         self.upper_crop = upper_crop
 
     @staticmethod
-    def calculate(upper, lower):
+    def calculate(profile, upper, lower):
         """
         Calculates the join between two images.
 
+        :param profile: The device configuration for these images.
         :param upper: The first image.
         :param lower: The second image.
         :return: A Join instance representing the join.
@@ -75,23 +76,31 @@ class Join:
         def prepare(image):
             return Join._trim_whitespace(image)
 
-        return Join._calculate_join(prepare(upper),
+        return Join._calculate_join(profile,
+                                    prepare(upper),
                                     prepare(lower))
 
     @staticmethod
-    def _are_identical(first, second, tolerance=5):
-        for pixel_a, pixel_b in zip(first, second):
-            for value_a, value_b in zip(pixel_a, pixel_b):
-                if abs(value_a - value_b) > tolerance:
-                    return False
-        return True
+    def _trim_whitespace(image):
+        """
+        Trim background from the top and bottom of a cropped image.
+
+        :param image: The image to crop. This must already be cropped according
+                      to the profile of the device that produced it.
+        :return: The cropped image.
+        """
+
+        bg = Image.new(image.mode, image.size, image.getpixel((0, 0)))
+        box = ImageChops.difference(image, bg).getbbox()
+        return image.crop((0, box[1], image.width, box[3]))
 
     @staticmethod
-    def _calculate_join(upper, lower, overlap=2):
+    def _calculate_join(profile, upper, lower, overlap=2):
         """
         Calculate where two images join together if the first is placed above
         the second.
 
+        :param profile: The device configuration for these images.
         :param upper: The first image.
         :param lower: The second image.
         :param overlap: The number of pixels to match before considering the
@@ -120,23 +129,16 @@ class Join:
             logger.debug('Using a needle height of %dpx for this join',
                          overlap)
 
-        # needle.save('needle.png', 'PNG')
-        # pa = needle.load()
-        # print(pa[315, 1])
-        # comp = Join._extract_slice(upper, 1482, 2)
-        # pa = comp.load()
-        # print(pa[315, 1])
-
-        # comp.save('upper-match.png', 'PNG')
-
-        # print(type(ImageChops.difference(needle, comp).getbbox()))
-
         # work our way up the first image, extracting slices and matching them
         # against the needle area above
         for offset in range(upper.height - overlap + 1, -1, -1):
             trial = Join._extract_slice(upper, offset, overlap)
+
+            # we can't use `ImageChops.difference()` as Android doesn't always
+            # render the same areas of messages in the same way - there are
+            # minor (but problematic) differences in RGB values
             if Join._are_identical(needle.getdata(), trial.getdata()):
-                # if ImageChops.difference(needle, trial).getbbox() is None:
+
                 # the rectangles are identical
                 logger.debug('Found intersection starting %d pixels into the '
                              'first image', offset)
@@ -165,10 +167,29 @@ class Join:
                 return Join(upper, lower, 0, 0, 0)
 
             # it's different
-            return Join(upper, lower, 0, 4, 0)  # TODO remove magic number (4)
+            return Join(upper, lower, 0, profile.additional_message_gap, 0)
 
         # assume the commenter was different
-        return Join(upper, lower, 0, 20, 0)  # TODO remove magic number (20)
+        return Join(upper, lower, 0, profile.reply_message_gap, 0)
+
+    @staticmethod
+    def _are_identical(first, second, tolerance=5):
+        """
+        Determines whether two images are the same within a given tolerance.
+
+        :param first: The first image.
+        :param second: The second image.
+        :param tolerance: The maximum amount a single RGB(A) value can differ
+                          by for the images to still be considered identical.
+        :return: True if the images can be considered identical, false
+                 otherwise.
+        """
+
+        for pixel_a, pixel_b in zip(first, second):  # pixels
+            for value_a, value_b in zip(pixel_a, pixel_b):  # RGB(A) values
+                if abs(value_a - value_b) > tolerance:
+                    return False
+        return True
 
     @staticmethod
     def _modal_colour(image):
@@ -257,20 +278,6 @@ class Join:
         """
 
         return image.crop((0, start, image.width, start + rows))
-
-    @staticmethod
-    def _trim_whitespace(image):
-        """
-        Trim background from the top and bottom of a cropped image.
-
-        :param image: The image to crop. This must already be cropped according
-                      to the profile of the device that produced it.
-        :return: The cropped image.
-        """
-
-        bg = Image.new(image.mode, image.size, image.getpixel((0, 0)))
-        box = ImageChops.difference(image, bg).getbbox()
-        return image.crop((0, box[1], image.width, box[3]))
 
     def __str__(self):
         return 'Join(lower_crop: {0}px, spacing: {1}px, upper_crop: {2}px)' \
