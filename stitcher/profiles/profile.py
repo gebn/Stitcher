@@ -45,17 +45,6 @@ class Profile:
                            image.width,
                            image.height - self.footer_height))
 
-    def body_height(self, image):
-        """
-        Calculates the largest possible height a single image produced by this
-        device could occupy in the final composition.
-
-        :param image: A sample image. We assume all images produced by a device
-                      will have the same dimensions.
-        :return: The maximum height in pixels.
-        """
-        return image.height - self.header_height - self.footer_height
-
     def footer(self, image):
         """
         Extract the footer of an image according to the rules of this profile.
