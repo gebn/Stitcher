@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
 import six
+
+from stitcher.profiles import apple, lg
 
 
 @six.python_2_unicode_compatible
@@ -8,6 +11,29 @@ class Profile:
     """
     Represents a phone's configuration.
     """
+
+    """
+    Mappings from device names to profiles.
+    This is used by the command line utility.
+    """
+    _MAP = {
+        'IPHONE_5S': apple.IPHONE_5S,
+        'LG_G3': lg.G3
+    }
+
+    @staticmethod
+    def from_identifier(identifier):
+        """
+        Retrieve a profile by its unique identifier.
+
+        :param identifier: The identifier to look up.
+        :return: The corresponding profile.
+        :raises ValueError: If no profile exists with the provided identifier.
+        """
+        if identifier not in Profile._MAP:
+            raise ValueError('Unrecognised profile identifier: ' + identifier)
+
+        return Profile._MAP[identifier]
 
     def __init__(self, config):
         """
