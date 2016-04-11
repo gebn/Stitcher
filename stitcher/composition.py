@@ -55,7 +55,8 @@ class Composition:
             try:
                 while True:
                     lower = self._prepare(next(paths))
-                    join = Join.calculate(self._profile.body(upper),
+                    join = Join.calculate(self._profile,
+                                          self._profile.body(upper),
                                           self._profile.body(lower))
                     canvas.append(join)
                     upper = lower
