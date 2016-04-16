@@ -43,7 +43,7 @@ class Profile:
         :raises ValueError: If the configuration is malformed.
         """
         try:
-            self.mode = config['mode']
+            self.mode = config['mode'] if 'mode' in config else 'RGBA'
             self.header_height = config['header_height']
             self.footer_height = config['footer_height']
             self.additional_message_gap = config['additional_message_gap']
