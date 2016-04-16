@@ -43,11 +43,17 @@ class Profile:
         :raises ValueError: If the configuration is malformed.
         """
         try:
-            self.mode = config['mode'] if 'mode' in config else 'RGBA'
+            self.mode = config['mode'] \
+                if 'mode' in config \
+                else 'RGBA'
             self.header_height = config['header_height']
-            self.footer_height = config['footer_height']
+            self.footer_height = config['footer_height'] \
+                if 'footer_height' in config \
+                else config['header_height']
             self.additional_message_gap = config['additional_message_gap']
-            self.reply_message_gap = config['reply_message_gap']
+            self.reply_message_gap = config['reply_message_gap'] \
+                if 'reply_message_gap' in config \
+                else config['additional_message_gap']
         except KeyError as e:
             raise ValueError('Malformed configuration: ' + e.message)
 
