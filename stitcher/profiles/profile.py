@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 import six
 
-from stitcher.profiles import apple, lg
+from stitcher.profiles import apple, lg, nokia
 
 
 @six.python_2_unicode_compatible
@@ -18,7 +18,8 @@ class Profile:
     """
     _MAP = {
         'IPHONE_5S': apple.IPHONE_5S,
-        'LG_G3': lg.G3
+        'LG_G3': lg.G3,
+        'LUMIA_925': nokia.LUMIA_925
     }
 
     @staticmethod
