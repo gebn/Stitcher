@@ -19,7 +19,7 @@ General usage:
 Combine `IMG_0001.PNG` and `IMG_0002.PNG` taken on an iPhone 5S, saving the
 result to `composition.png`:
 
-    stitch IPHONE_5S composition.png IMG_0001.PNG IMG_0002.PNG IMG_0003.PNG
+    stitch IPHONE_5S composition.png IMG_0001.PNG IMG_0002.PNG
 
 Combine all `.png` files in the present working directory using the profile
 for LG's G3 phone, outputting to `combined.png`:
