@@ -103,7 +103,7 @@ class Profile:
         return image.convert(self.mode)
 
     def __str__(self):
-        return 'Profile(mode: {0}, header: {1}px, footer: {2}px, ' + \
-               'additional: {3}px, swap: {4}px)'.format(
-                   self.mode, self.header_height, self.footer_height,
+        return 'Profile(mode: {0}, header: {1}px, footer: {2}px, '.format(
+            self.mode, self.header_height, self.footer_height) + \
+               'additional: {0}px, swap: {1}px)'.format(
                    self.additional_message_gap, self.reply_message_gap)
