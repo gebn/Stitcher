@@ -56,7 +56,7 @@ class Profile:
                 if 'reply_message_gap' in config \
                 else config['additional_message_gap']
         except KeyError as e:
-            raise ValueError('Malformed configuration: ' + e.message)
+            raise ValueError('Malformed configuration: {0}'.format(e))
 
     def header(self, image):
         """
