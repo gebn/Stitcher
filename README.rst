@@ -55,7 +55,7 @@ Profiles define parameters used by Stitcher to join images. They are stored with
 +==============+=======================================+=======+==================+
 | ``mode``     | The image format                      | No    | RGBA             |
 +--------------+---------------------------------------+-------+------------------+
-| ``header_hei | The number of pixels of vertical      | Yes   | -                |
+| ``header_hei | The number of pixels of vertical      | Yes   |                  |
 | ght``        | height to crop from the top of the    |       |                  |
 |              | image                                 |       |                  |
 +--------------+---------------------------------------+-------+------------------+
@@ -63,7 +63,7 @@ Profiles define parameters used by Stitcher to join images. They are stored with
 | ght``        | height to crop from the bottom of the |       | ``header_height` |
 |              | image                                 |       | `                |
 +--------------+---------------------------------------+-------+------------------+
-| ``additional | The vertical spacing between messages | Yes   | -                |
+| ``additional | The vertical spacing between messages | Yes   |                  |
 | _message_gap | from the same sender                  |       |                  |
 | ``           |                                       |       |                  |
 +--------------+---------------------------------------+-------+------------------+
