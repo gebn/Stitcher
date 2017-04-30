@@ -9,7 +9,7 @@ __title__ = 'stitcher'
 __version__ = '0.0.1'
 __author__ = 'George Brighton'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 2016 George Brighton'
+__copyright__ = 'Copyright 2017 George Brighton'
 
 
 def join(paths, profile):
