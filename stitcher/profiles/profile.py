@@ -16,7 +16,7 @@ class Profile:
     Mappings from device names to profiles.
     This is used by the command line utility.
     """
-    _MAP = {
+    MAPPINGS = {
         'IPHONE_5S': apple.IPHONE_5S,
         'LG_G3': lg.G3,
         'LUMIA_925': nokia.LUMIA_925
@@ -31,10 +31,10 @@ class Profile:
         :return: The corresponding profile.
         :raises ValueError: If no profile exists with the provided identifier.
         """
-        if identifier not in Profile._MAP:
-            raise ValueError('Unrecognised profile identifier: ' + identifier)
+        if identifier not in Profile.MAPPINGS:
+            raise ValueError('Unrecognised profile: ' + identifier)
 
-        return Profile._MAP[identifier]
+        return Profile.MAPPINGS[identifier]
 
     def __init__(self, config):
         """
