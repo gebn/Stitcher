@@ -219,7 +219,7 @@ class Join:
         :param image: The image to look for the colour in.
         :return: The number of pixels in `image` of colour `colour`.
         """
-        return len(filter(lambda pixel: pixel == colour, image.getdata()))
+        return len([1 for pixel in image.getdata() if pixel == colour])
 
     @staticmethod
     def _guess_bubble_backgrounds(image):
