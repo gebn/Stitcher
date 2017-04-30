@@ -47,29 +47,22 @@ Combine all ``.png`` files in the present working directory using the profile fo
 Profiles
 --------
 
-Profiles define parameters used by Stitcher to join images. They are stored within the ``profiles`` directory, organised by device manufacturer. The following options can be specified:
+Profiles define parameters used by Stitcher to join images. They are stored within the ``profiles`` directory, organised by device manufacturer.
+The following options can be specified:
 
-+--------------+---------------------------------------+-------+------------------+
-| Name         | Description                           | Requi | Default          |
-|              |                                       | red   |                  |
-+==============+=======================================+=======+==================+
-| ``mode``     | The image format                      | No    | RGBA             |
-+--------------+---------------------------------------+-------+------------------+
-| ``header_hei | The number of pixels of vertical      | Yes   |                  |
-| ght``        | height to crop from the top of the    |       |                  |
-|              | image                                 |       |                  |
-+--------------+---------------------------------------+-------+------------------+
-| ``footer_hei | The number of pixels of vertical      | No    | Same as          |
-| ght``        | height to crop from the bottom of the |       | ``header_height` |
-|              | image                                 |       | `                |
-+--------------+---------------------------------------+-------+------------------+
-| ``additional | The vertical spacing between messages | Yes   |                  |
-| _message_gap | from the same sender                  |       |                  |
-| ``           |                                       |       |                  |
-+--------------+---------------------------------------+-------+------------------+
-| ``reply_mess | The vertical spacing between two      | No    | Same as          |
-| age_gap``    | messages sent by different            |       | ``additional_mes |
-|              | participants                          |       | sage_gap``       |
-+--------------+---------------------------------------+-------+------------------+
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
+| Name                       | Description                                                                  | Default                            |
++============================+==============================================================================+====================================+
+| ``mode``                   | The image format                                                             | RGBA                               |
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
+| ``header_height``          | The number of pixels of vertical height to crop from the top of the image    | *Required*                         |
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
+| ``footer_height``          | The number of pixels of vertical height to crop from the bottom of the image | Same as ``header_height``          |
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
+| ``additional_message_gap`` | The vertical spacing between messages from the same sender                   | *Required*                         |
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
+| ``reply_message_gap``      | The vertical spacing between two messages sent by different participants     | Same as ``additional_message_gap`` |
++----------------------------+------------------------------------------------------------------------------+------------------------------------+
 
-If you’d like to add a missing a profile for your device, create a new file if necessary, and add a dictionary with the device’s details. Please consider contributing it in a pull request so others may benefit!
+If you’d like to add a missing a profile for your device, create a new file if necessary, and add a dictionary with the device’s details. Please
+consider contributing it in a pull request so others may benefit!
