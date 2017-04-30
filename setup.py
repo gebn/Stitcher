@@ -18,7 +18,7 @@ def _read_file(name, encoding='utf-8'):
 
 setup(
     name='stitcher',
-    version='0.0.1',
+    version='1.0.0',
     description='Join Messenger conversation screenshots.',
     long_description=_read_file('README.rst'),
     license='MIT',
