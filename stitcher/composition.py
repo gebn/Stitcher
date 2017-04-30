@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import logging
 from PIL import Image
 
 from stitcher.join import Join
 from stitcher.canvas import Canvas
+
+
+logger = logging.getLogger(__name__)
 
 
 class Composition:
@@ -19,6 +22,7 @@ class Composition:
         :param profile: A profile for the device that produced the images that
                         will be combined.
         """
+        logger.debug('Initialising new composition using profile %s', profile)
         self._profile = profile
 
     def _prepare(self, path):

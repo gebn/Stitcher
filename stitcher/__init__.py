@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from pkg_resources import get_distribution, DistributionNotFound
 import os
+import logging
 
 from stitcher.composition import Composition
 from stitcher.profiles.profile import Profile
@@ -11,6 +12,8 @@ __title__ = 'stitcher'
 __author__ = 'George Brighton'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2017 George Brighton'
+
+logger = logging.getLogger(__name__)
 
 
 # adapted from http://stackoverflow.com/a/17638236
@@ -34,5 +37,5 @@ def join(paths, profile):
                     images.
     :return: A PIL image representing the composite.
     """
-
+    logger.info('Joining %d images using params %s', len(paths), profile)
     return Composition(Profile(profile)).process(paths)

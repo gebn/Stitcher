@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import logging
 from PIL import Image
+
+
+logger = logging.getLogger(__name__)
 
 
 class Canvas:
@@ -18,7 +21,8 @@ class Canvas:
                         we'll receive.
         :param upper: The header and body will be used to start the canvas.
         """
-
+        logger.debug('Initialising new canvas using profile %s with upper %s',
+                     profile, upper)
         self._profile = profile
         self.image = Image.new(self._profile.mode,
                                (upper.width,
