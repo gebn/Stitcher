@@ -29,7 +29,7 @@ setup(
     zip_safe=True,
     install_requires=[
         'six>=1.9.0',
-        'Pillow'
+        'Pillow>=4.0.0'
     ],
     test_suite='nose.collector',
     tests_require=[
